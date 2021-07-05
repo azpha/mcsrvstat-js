@@ -6,7 +6,7 @@
 # <p align="center">How do I use it?</p>
 
 <p align="center">There are many functions you can call to get different results.<br>
-You can take a look at the <a href="api.mcsrvstat.us">API Doc</a> to see what each function returns.</p>
+You can take a look at the <a href="https://api.mcsrvstat.us">API Doc</a> to see what each function returns.</p>
 
 ### <p align="center">.fetchJavaServer()
 ```
