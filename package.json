@@ -1,6 +1,6 @@
 {
   "name": "mcsrvstat-wrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Javascript Wrapper for the MCSRVSTAT Web API -- fetch Minecraft server status",
   "main": "index.js",
   "scripts": {
