@@ -1,6 +1,9 @@
 # <p align="center"><a href="https://api.mcsrvstat.us">MCSRVSTAT</a> Simple Javascript Wrapper</p>
 <p align="center"><i>I do not own MCSRVSTAT, this is simply a wrapper for their API :)</i></p>
 
+<p align="center">
+<a href="https://npmjs.com/package/mcsrvstat-wrapper"><img src="https://nodei.co/npm/mcsrvstat-wrapper.png?downloads=true&downloadRank=true&stars=true"></a>
+
 <p align="center">You can now <strong>easily</strong> fetch your Minecraft Servers Status straight from your code without dealing with JSON manipulation!</p>
 
 # <p align="center">How do I use it?</p>
