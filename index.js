@@ -1,75 +1,68 @@
-const fetch = require('node-fetch')
+const axios = require('axios');
+const baseUrl = "https://api.mcsrvstat.us/";
 
-const fetchJavaServer = async function(ip) {
-    var url = `https://api.mcsrvstat.us/2/${ip}`
+async function fetchJavaServer(ip) {
+    if (!ip) throw new Error("IP not supplied");
+    else {
+        return await axios(baseUrl + `2/${ip}`).then((response) => {
+            return {
+                status: response.data.online,
+                version: response.data.version,
+                players: response.data.players,
+                connection: {
+                    ip: response.data.ip,
+                    hostname: response.data.hostname
+                }
+            }
+        }).catch((e) => {
+            throw new Error(`Failed to fetch '${ip}'`)
+        })
+    }
+}
 
+async function fetchBedrockServer(ip) {
+    if (!ip) throw new Error("IP not supplied");
+    return await axios(baseUrl + `bedrock/2/${ip}`).then((response) => {
+        return {
+            status: response.data.online,
+            version: response.data.version,
+            players: response.data.players,
+            connection: {
+                ip: response.data.ip,
+                hostname: response.data.hostname
+            }
+        }
+    }).catch((e) => {
+        throw new Error(`Failed to fetch '${ip}'`)
+    })
+}
+
+async function fetchIcon(ip) {
+    return `https://api.mcsrvstat.us/icon/${ip}`;
+}
+
+async function javaHttpCode(ip) {
     try {
-        const data = await fetch(url).then(response => response.json())
-        // console.log(data)
-
-        // Define vars for external use
-        module.exports.status = data.online;
-        module.exports.oPlayers = data.players.online;
-        module.exports.maxPlayers = data.players.max;
-        module.exports.servip = data.ip;
-        module.exports.version = data.version;
-        module.exports.hostname = data.hostname;
-    }
-    catch(err) {
-        return console.error(`Error fetching status of ${ip}.\n${err}`)
+        return await axios(baseUrl + `simple/${ip}`).then((response) => {
+            return response.status;
+        }).catch((e) => {
+            throw new Error(`Failed to fetch '${ip}'`)
+        })
+    } catch(err) {
+        throw new Error(`Failed to fetch '${ip}' status code`)
     }
 }
 
-const fetchBedrockServer = async function(ip) {
-    var url = `https://api.mcsrvstat.us/bedrock/2/${ip}`;
-
+const bedrockHttpCode = async function(ip) {
     try {
-        const data = await fetch(url).then(response => response.json())
-
-        // Define vars for external use
-        module.exports.oPlayers = data.players.online;
-        module.exports.maxPlayers = data.players.max;
-        module.exports.version = data.version;
-        module.exports.status = data.online;
-        module.exports.servip = data.ip;
-        module.exports.hostname = data.hostname;
-    }
-    catch(err) {
-        return console.error(`Error fetching status of ${ip}.\n`, err)
+        return await axios(baseUrl + `bedrock/simple/${ip}`).then((response) => {
+            return response.status;
+        }).catch((e) => {
+            throw new Error(`Failed to fetch '${ip}'`)
+        })
+    } catch(err) {
+        throw new Error(`Failed to fetch '${ip}' status code`)
     }
 }
 
-const fetchIcon = async function(ip, err) {
-    var url = `https://api.mcsrvstat.us/icon/${ip}`
-    module.exports.servIconUrl = url 
-    if(err) {
-        return console.error(`Error fetching icon of ${ip}.\n`, err)
-    }
-}
-
-const httpCodeJava = async function(ip) {
-    var url = `https://api.mcsrvstat.us/simple/${ip}`
-    try {
-        const data = await fetch(url).then(response => response.text())
-
-        module.exports.httpCode = data;
-    }
-    catch(err) {
-        return console.error(`Error fetching HTTP Code of ${ip}\n`, err)
-    }
-}
-
-const httpCodeBedrock = async function(ip) {
-    var url = `https://api.mcsrvstat.us/bedrock/simple/${ip}`
-
-    try {
-        const data = await fetch(url).then(response => response.text())
-
-        module.exports.httpCode = data;
-    }
-    catch(err) {
-        return console.error(`Error fetching HTTP code of ${ip}.\n`, err)
-    }
-}
-
-module.exports = {fetchJavaServer, fetchBedrockServer, fetchIcon, httpCodeJava, httpCodeBedrock}
+module.exports = {fetchJavaServer, fetchBedrockServer, fetchIcon, javaHttpCode, bedrockHttpCode}

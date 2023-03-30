@@ -1,14 +1,11 @@
 {
   "name": "mcsrvstat-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Javascript Wrapper for the MCSRVSTAT Web API -- fetch Minecraft server status",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/awexxx/mcsrvstat-js.git"
+    "url": "git+https://github.com/azpha/mcsrvstat-js.git"
   },
   "keywords": [
     "mcsrvstat",
@@ -17,9 +14,9 @@
     "server",
     "javascript"
   ],
-  "author": "Awex",
+  "author": "Alex",
   "license": "MIT",
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "axios": "^1.3.4"
   }
 }

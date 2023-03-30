@@ -4,91 +4,48 @@
 <p align="center">
 <a href="https://npmjs.com/package/mcsrvstat-wrapper"><img src="https://nodei.co/npm/mcsrvstat-wrapper.png?downloads=true&downloadRank=true&stars=true"></a>
 
-<p align="center">You can now <strong>easily</strong> fetch your Minecraft Servers Status straight from your code without dealing with JSON manipulation!</p>
+Easily fetch the status of a Minecraft server (Java or Bedrock) all from Node!
 
 # <p align="center">How do I use it?</p>
 
 <p align="center">There are many functions you can call to get different results.<br>
 You can take a look at the <a href="https://api.mcsrvstat.us">API Doc</a> to see what each function returns.</p>
 
-### <p align="center">.fetchJavaServer()
+### fetchJavaServer
+Fetch the status of a Minecraft Java server
+```js
+const serverInfo = await fetchJavaServer('hostname.example.com');
+console.log(serverInfo);
+// { status: true, version: 'Requires MC 1.8 / 1.19', players: { online: 5, max: 20 }, connection: { ip: 'xxx.xxx.xxx.xxx', hostname: 'hostname.example.com' } }
 ```
-const mcsrvstat = require('mcsrvstat-wrapper')
 
-async function getJava() {
-await mcsrvstat.fetchJavaServer('play.hypixel.net');
-
-if (mcsrvstat.status === true) {
-    console.log(`Server is online!\n
-    Online Players: ${mcsrvstat.oPlayers}\n
-    Max Players: ${mcsrvstat.maxPlayers}\n
-    IP: ${mcsrvstat.servip}\n
-    Version: ${mcsrvstat.version}`)
-    } else if (mcsrvstat.status === false) {
-        console.log(`Server is offline :(`)
-    }
-}
+### fetchBedrockServer
+Fetch the status of a Minecraft Bedrock server
+```js
+const serverInfo = await fetchBedrockServer('hostname.example.com');
+console.log(serverInfo);
+// { status: true, version: 'x.xx.xx', players: { online: 5, max: 20 }, connection: { ip: 'xxx.xxx.xxx.xxx', hostname: 'hostname.example.com' } }
 ```
-</p>
 
-Use: Fetches status of a Java Edition Server
-
-### <p align="center">.fetchBedrockServer()
+### fetchIcon
+Generates a link to the servers icon
+```js
+    let url = await mcsrvstat.fetchIcon('play.hypixel.net');
+    console.log(url)
 ```
-const mcsrvstat = require('mcsrvstat-wrapper');
 
-async function getBedrock {
-await mcsrvstat.fetchBedrockServer('pe.mineplex.com');
-
-    if(mcsrvstat.status === true) {
-        console.log(`Server is online!\n
-        Online Players: ${mcsrvstat.oPlayers}\n
-        Max Players: ${mcsrvstat.maxPlayers}\n
-        IP: ${mcsrvstat.hostname}\n
-        Version: ${mcsrvstat.version}`)
-    } else if (mcsrvstat.status === false) {
-        console.log('Server is offline :(')
-    }
-}
+### getJavaHttp
+Returns the status of a Minecraft Java server using a HTTP status code
+```js
+const httpCode = await mcsrvstat.javaHttpCode('hostname.example.com');
+console.log(httpCode);
+// 200
 ```
-Use: Fetches the status of a Bedrock Edition Server
 
-### <p align="center">.getIcon()</p>
-```
-const mcsrvstat = require('mcsrvstat-wrapper');
-
-async function getIcon {
-    await mcsrvstat.fetchIcon('play.hypixel.net');
-    console.log(mcsrvstat.servIconUrl)
-}
-```
-Use: Fetches a link to the server icon
-
-### <p align="center">.getJavaHttp()</p>
-```
-const mcsrvstat = require('mcsrvstat-wrapper')
-
-async function getHttpJava() {
-    await mcsrvstat.httpCodeJava('play.plaguecraft.xyz')
-    if (mcsrvstat.httpCode === `Online`) {
-        console.log('The server is online!')
-    } else if (mcsrvstat.httpCode === 'Offline') {
-        console.log('The server is offline :(')
-    }
-}
-```
-Use: fetches a plaintext "Online" or "Offline" if you don't need any other info. 
-
-### <p align="center">.getBedrockHttp()</p>
-```
-const mcsrvstat = require('mcsrvstat-wrapper')
-
-async function getBedrockHttp() {
-    await mcsrvstat.httpCodeBedrock('play.plaguecraft.xyz')
-    if (mcsrvstat.httpCode === `Online`) {
-        console.log('The server is online!')
-    } else if (mcsrvstat.httpCode === 'Offline') {
-        console.log('The server is offline :(')
-    }
-}
+### getBedrockHttp
+Returns the status of a Minecraft Bedrock server using a HTTP status code
+```js
+const httpCode = await mcsrvstat.javaHttpCode('hostname.example.com');
+console.log(httpCode);
+// 200
 ```
