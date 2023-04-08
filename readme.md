@@ -4,48 +4,50 @@
 <p align="center">
 <a href="https://npmjs.com/package/mcsrvstat-wrapper"><img src="https://nodei.co/npm/mcsrvstat-wrapper.png?downloads=true&downloadRank=true&stars=true"></a>
 
-Easily fetch the status of a Minecraft server (Java or Bedrock) all from Node!
+<p align="center">Easily fetch the status of a Minecraft server (Java or Bedrock) all from Node!</p>
 
-# <p align="center">How do I use it?</p>
+# How do I use this?
+You can utilize the following methods below.  
+If something is missing from these responses that are returned from [MCSRVSTAT's API](https://api.mcsrvstat.us/) and you'd like to see them supported, create an issue!
 
-<p align="center">There are many functions you can call to get different results.<br>
-You can take a look at the <a href="https://api.mcsrvstat.us">API Doc</a> to see what each function returns.</p>
-
-### fetchJavaServer
+## fetchJavaServer
 Fetch the status of a Minecraft Java server
 ```js
 const serverInfo = await fetchJavaServer('hostname.example.com');
 console.log(serverInfo);
-// { status: true, version: 'Requires MC 1.8 / 1.19', players: { online: 5, max: 20 }, connection: { ip: 'xxx.xxx.xxx.xxx', hostname: 'hostname.example.com' } }
+// { online: true, version: 'Requires MC 1.8 / 1.19', players: { online: 5, max: 20 }, connection: { ip: 'xxx.xxx.xxx.xxx', hostname: 'hostname.example.com' } }
 ```
 
-### fetchBedrockServer
+## fetchBedrockServer
 Fetch the status of a Minecraft Bedrock server
 ```js
 const serverInfo = await fetchBedrockServer('hostname.example.com');
 console.log(serverInfo);
-// { status: true, version: 'x.xx.xx', players: { online: 5, max: 20 }, connection: { ip: 'xxx.xxx.xxx.xxx', hostname: 'hostname.example.com' } }
+// { online: true, version: 'x.xx.xx', players: { online: 5, max: 20 }, connection: { ip: 'xxx.xxx.xxx.xxx', hostname: 'hostname.example.com' } }
 ```
 
-### fetchIcon
+## fetchIcon
 Generates a link to the servers icon
 ```js
-    let url = await mcsrvstat.fetchIcon('play.hypixel.net');
-    console.log(url)
+let url = await mcsrvstat.fetchIcon('hostname.example.com');
+console.log(url)
+// 'https://api.mcsrvstat.us/icon/hostname.example.com'
 ```
 
-### getJavaHttp
-Returns the status of a Minecraft Java server using a HTTP status code
+## getJavaHttp
+Returns the status of a Minecraft Java server using HTTP status code conventions.  
+`200` is expected for Online and `404` is expected for Offline.
 ```js
 const httpCode = await mcsrvstat.javaHttpCode('hostname.example.com');
 console.log(httpCode);
-// 200
+// 200/404
 ```
 
-### getBedrockHttp
-Returns the status of a Minecraft Bedrock server using a HTTP status code
+## getBedrockHttp
+Returns the status of a Minecraft Bedrock server using HTTP status code conventions.  
+`200` is expected for Online and `404` is expected for Offline.
 ```js
 const httpCode = await mcsrvstat.javaHttpCode('hostname.example.com');
 console.log(httpCode);
-// 200
+// 200/404
 ```
